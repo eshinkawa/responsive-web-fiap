@@ -1,23 +1,14 @@
-.single-file-app {
-  text-align: center;
-  padding: 20px;
+.container {
   font-family: "Roboto", sans-serif;
+  display: block;
 }
 
-.character-list {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.item {
+ display: flex;
+ flex-direction: column;
 }
 
-.character-item {
-  margin: 10px;
-  text-align: center;
-}
-
-.character-image {
+.imagem {
   max-width: 100px;
   border-radius: 50%;
 }
