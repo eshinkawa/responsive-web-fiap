@@ -1,4 +1,23 @@
-.App {
-  font-family: sans-serif;
+.single-file-app {
   text-align: center;
+  padding: 20px;
+  font-family: "Roboto", sans-serif;
+}
+
+.character-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.character-item {
+  margin: 10px;
+  text-align: center;
+}
+
+.character-image {
+  max-width: 100px;
+  border-radius: 50%;
 }
