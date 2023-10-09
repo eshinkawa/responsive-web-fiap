@@ -1,14 +1,25 @@
 .container {
-  font-family: "Roboto", sans-serif;
-  display: block;
+    display: flex;
+    flex-wrap: wrap;
+    font-family: 'Roboto';
 }
 
 .item {
- display: flex;
- flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 8px;
+    padding: 8px;;
+    border: 1px solid #c6c6c6;
+    border-bottom-left-radius: 5px; 
+    border-bottom-right-radius: 5px; 
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
 }
 
-.imagem {
-  max-width: 100px;
-  border-radius: 50%;
+.imagem{
+    max-width: 100px;
+    border-radius: 50%;
 }
