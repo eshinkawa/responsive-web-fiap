@@ -8,8 +8,11 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const listaNaoParseada = localStorage.getItem('listaFavoritos')
-  })
+    const listaNaoParseada = localStorage.getItem("listaFavoritos");
+    const listaParseada = JSON.parse(listaNaoParseada) || []; //se a lista nao existir, setar um array vazio
+
+    setFavorites(listaParseada);
+  });
 
   useEffect(() => {
     console.log("buscando personagens");
@@ -42,9 +45,12 @@ function App() {
 
   const handleCharacter = (personagem) => {
     // criar uma copia do array de favoritos
-    const personagensNovo = [...favorites]; // na primeirq vez, vai estar vazio = []
-    console.log("personagensNovo: ", personagensNovo);
+    const personagensNovo = [...favorites]; // na primeira vez, vai estar vazio = []
     personagensNovo.push(personagem);
+
+    const listaStringficadaAtualizada = JSON.stringify(personagensNovo);
+    localStorage.setItem("listaFavoritos", listaStringficadaAtualizada);
+
     //com o personagensNovo atualizado, colocamos no estado do react
     setFavorites(personagensNovo);
 
