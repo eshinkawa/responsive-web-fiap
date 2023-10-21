@@ -8,12 +8,14 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const listaNaoParseada = localStorage.getItem(listaFavoritos)
+    const listaNaoParseada = localStorage.getItem('listaFavoritos')
   })
 
   useEffect(() => {
     console.log("buscando personagens");
     buscarPersonagens();
+
+    // b
   }, []);
 
   //camada de dados
