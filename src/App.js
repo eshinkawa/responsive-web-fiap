@@ -1,21 +1,23 @@
 // SingleFileApp.js
 import React, { useEffect, useState, Suspense } from "react";
 import "./styles.css";
+import Modal from "./modal";
 
 function App() {
   const [characters, setCharacters] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const [personagemDetalhado, setPersonagemDetalhado] = useState({});
 
   useEffect(() => {
     const listaNaoParseada = localStorage.getItem("listaFavoritos");
     const listaParseada = JSON.parse(listaNaoParseada) || []; //se a lista nao existir, setar um array vazio
 
     setFavorites(listaParseada);
-  });
+  }, []);
 
   useEffect(() => {
-    console.log("buscando personagens");
     buscarPersonagens();
 
     // b
@@ -29,7 +31,6 @@ function App() {
       .then((response) => response.json())
 
       .then((data) => {
-        console.log(data);
         // conceito de map e filter
         const personagens = data.results.filter((_, index) => index < 10); // personagens
         // colocar na variavel do estado de personagens
@@ -57,6 +58,13 @@ function App() {
     // favoritos atualizado
   };
 
+  const abrirMaisDetalhes = (detalhePersonagem) => {
+    console.log("detalhePersonagem: ", detalhePersonagem);
+
+    setIsOpen(true); // colocando no state do react
+    setPersonagemDetalhado(detalhePersonagem); // colocando no state do react
+  }
+
   // camada de view => JSX / HTML
   return (
     <div className="single-file-app">
@@ -68,7 +76,7 @@ function App() {
           <li
             key={character.id}
             className="character-item"
-            onClick={() => handleCharacter(character)}
+            onClick={() => abrirMaisDetalhes(character)}
           >
             <img
               src={character.image}
@@ -79,15 +87,9 @@ function App() {
           </li>
         ))}
       </ul>
-      <h1>Lista de favoritos</h1>
 
-      <div>
-        {favorites.map((favorite) => (
-          <div key={favorite.id}>
-            {favorite.name} - {favorite.status}
-          </div>
-        ))}
-      </div>
+      <Modal isOpen={isOpen} setIsOpen={() => setIsOpen(!isOpen)} personagemDetalhado={personagemDetalhado} />
+
     </div>
   );
 }
