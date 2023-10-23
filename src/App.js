@@ -12,7 +12,7 @@ function App() {
     const listaParseada = JSON.parse(listaNaoParseada) || []; //se a lista nao existir, setar um array vazio
 
     setFavorites(listaParseada);
-  });
+  }, []);
 
   useEffect(() => {
     console.log("buscando personagens");
@@ -43,7 +43,12 @@ function App() {
       });
   };
 
-  const handleCharacter = (personagem) => {
+  const adicionarFavoritos = (personagem) => {
+
+
+    // se personagem ja existir na lista de favoritos, nao adicionar
+
+
     // criar uma copia do array de favoritos
     const personagensNovo = [...favorites]; // na primeira vez, vai estar vazio = []
     personagensNovo.push(personagem);
@@ -57,6 +62,13 @@ function App() {
     // favoritos atualizado
   };
 
+  const apagarDoFavoritos = (id) => {
+    console.log(id)
+
+    const favoritosFiltrados = favorites.filter((personagem) => personagem.id !== id);
+    setFavorites(favoritosFiltrados);
+  }
+
   // camada de view => JSX / HTML
   return (
     <div className="single-file-app">
@@ -68,7 +80,7 @@ function App() {
           <li
             key={character.id}
             className="character-item"
-            onClick={() => handleCharacter(character)}
+            onClick={() => adicionarFavoritos(character)}
           >
             <img
               src={character.image}
@@ -83,8 +95,11 @@ function App() {
 
       <div>
         {favorites.map((favorite) => (
-          <div key={favorite.id}>
-            {favorite.name} - {favorite.status}
+          <div className="item-favorito">
+            <div key={favorite.id}>
+              {favorite.name} - {favorite.status}
+            </div>
+            <button onClick={() => apagarDoFavoritos(favorite.id)}>Apagar</button>
           </div>
         ))}
       </div>
