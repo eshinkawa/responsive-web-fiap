@@ -1,4 +1,5 @@
 import React, { useEffect, useState, Suspense } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ListaPersonagens() {
     const [personagens, setPersonagens] = useState([]);
@@ -19,13 +20,11 @@ function ListaPersonagens() {
             .then((response) => response.json())
 
             .then((data) => {
-                console.log(data);
                 // conceito de map e filter
                 const personagens = data.results.filter((_, index) => index < 10); // personagens
                 // colocar na variavel do estado de personagens
                 // fazer coisas do react
                 setPersonagens(personagens);
-                setLoading(false);
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
@@ -43,7 +42,7 @@ function ListaPersonagens() {
                     <li
                         key={personagem.id}
                         className="character-item"
-                        onClick={() => navigate('/personagem', { personagem })}
+                        onClick={() => navigate('/personagem', { state: personagem })}
                     >
                         <img
                             src={personagem.image}
@@ -54,7 +53,6 @@ function ListaPersonagens() {
                     </li>
                 ))}
             </ul>
-            <h1>Lista de favoritos</h1>
         </div >
     );
 }
